@@ -43,6 +43,7 @@
 	  }
 	  
 	  
+	
 	  
 	  /*
 	  for (let i = 0; i < 60; i += 1) {
@@ -56,9 +57,11 @@
 
 	  const data = ffmpeg.FS('readFile', 'out.mp4');
 	  //ffmpeg.FS('unlink', 'audio.ogg')
-	  for (let i = 0; i < 60; i += 1) {
-		const num = `00${i}`.slice(-3);
-		ffmpeg.FS('unlink', `tmp.${num}.png`);
+	  var i = 0;
+	  for (const image2 of images) {
+	    const num = `00${i}`.slice(-3);
+		ffmpeg.FS('unlink', `tmp.${num}.jpg`);
+		i++
 	  }
 
 	  const video = document.getElementById('output-video');
