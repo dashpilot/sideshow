@@ -2,7 +2,7 @@
  <main>
  <h3>Click start to transcode images to mp4 (x264) and play!</h3>
   <video id="output-video" controls></video><br />
-  <button id="start-btn">Start</button>
+  <button id="start-btn" on:click={image2video}>Start</button>
   <p id="message"></p>
   <a href="https://github.com/ffmpegjs/ffmpeg.js/tree/master/examples/assets/triangle">Data Set</a>
  </main>
@@ -45,8 +45,7 @@
 
 
 	}
-	const elm = document.getElementById('start-btn');
-	elm.addEventListener('click', image2video);
+
 
 
   </script>
