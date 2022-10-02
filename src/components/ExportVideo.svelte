@@ -52,7 +52,12 @@
 	  */
 	  
 	  message = 'Start transcoding...';
-	  await ffmpeg.run('-framerate', '25', '-pattern_type', 'glob', '-i', '*.jpg', '-i', 'audio.ogg', '-c:a', 'copy', '-shortest', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', 'out.mp4');
+	  await ffmpeg.run('-framerate', '0.25', '-pattern_type', 'glob', '-i', '*.jpg', '-i', 'audio.ogg', '-c:a', 'copy', '-shortest', '-c:v', 'libx264',  '-filter_complex', "scale=-2:2*ih,zoompan=z='min(zoom+0.0015,1.5)':d=125:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',scale=-2:720", '-r', '25', '-pix_fmt', 'yuv420p', 'out.mp4');
+	  
+	  
+	  // -framerate -> set input framerate
+	  // -r -> set output framerate
+	  
 
 
 	  const data = ffmpeg.FS('readFile', 'out.mp4');
