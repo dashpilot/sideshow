@@ -37,7 +37,7 @@
 	  for (const image of images) {
 		  const num = `00${i}`.slice(-3);
 		  let img = image; // image.split(',')[1]
-		  ffmpeg.FS('writeFile', `tmp.${num}.png`, await fetchFile(img));
+		  ffmpeg.FS('writeFile', `tmp.${num}.jpg`, await fetchFile(img));
 		  i++;
 		  console.log(i)
 	  }
@@ -51,7 +51,7 @@
 	  */
 	  
 	  message = 'Start transcoding...';
-	  await ffmpeg.run('-framerate', '30', '-pattern_type', 'glob', '-i', '*.png', '-i', 'audio.ogg', '-c:a', 'copy', '-shortest', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', 'out.mp4');
+	  await ffmpeg.run('-framerate', '30', '-pattern_type', 'glob', '-i', '*.jpg', '-i', 'audio.ogg', '-c:a', 'copy', '-shortest', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', 'out.mp4');
 
 
 	  const data = ffmpeg.FS('readFile', 'out.mp4');
