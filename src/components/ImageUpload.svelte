@@ -76,9 +76,3 @@ document.getElementById('fileInput').addEventListener('change', function(e) {
 	</div>
 </div>
 
-<style>
-	.button:hover{
-		border: 3px solid black;
-		cursor: pointer;
-	}
-</style>
