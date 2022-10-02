@@ -11,6 +11,8 @@
   <script>
   	export let images;
 	let message = "Press start to convert";
+	
+	
 	  
 	  
 	const {
@@ -22,6 +24,8 @@
 	});
 
 	const image2video = async () => {
+		
+		console.log(images)
 
 	  message = 'Loading ffmpeg-core.js';
 	  await ffmpeg.load();
