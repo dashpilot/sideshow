@@ -30,12 +30,12 @@
 	  ffmpeg.FS('writeFile', 'audio.ogg', await fetchFile('assets/triangle/audio.ogg'));
 	  
 	  var i = 0;
-	  images.forEach((image)=>{
+	  for (const image of images) {
 		  const num = `00${i}`.slice(-3);
 		  ffmpeg.FS('writeFile', `tmp.${num}.png`, await fetchFile(atob(image.split(',')[1])));
 		  i++;
 		  console.log(i)
-	  })
+	  }
 	  
 	  
 	  
