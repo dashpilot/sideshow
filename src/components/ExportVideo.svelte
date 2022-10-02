@@ -36,7 +36,7 @@
 	  var i = 0;
 	  for (const image of images) {
 		  const num = `00${i}`.slice(-3);
-		  let img = btoa(image.split(',')[1]);
+		  let img = image.split(',')[1];
 		  ffmpeg.FS('writeFile', `tmp.${num}.png`, await fetchFile(img));
 		  i++;
 		  console.log(i)
