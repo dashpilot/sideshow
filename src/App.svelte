@@ -1,5 +1,6 @@
 <script>
   import ImageUpload from './components/ImageUpload.svelte'
+  import ExportVideo from './components/ExportVideo.svelte'
   let images = [];
 </script>
 
@@ -14,7 +15,7 @@
  </div>
   
   
-  
+  <ExportVideo />
  
 
 </main>
