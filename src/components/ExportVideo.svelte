@@ -9,7 +9,8 @@
   
   
   <script>
-	  let message = "Press start to convert";
+  	export let images;
+	let message = "Press start to convert";
 	  
 	  
 	const {
@@ -26,7 +27,7 @@
 	  await ffmpeg.load();
 	  
 	  message = 'Loading data';
-	  ffmpeg.FS('writeFile', 'audio.ogg', await fetchFile('assets/triangle/audio.ogg'));
+	  // ffmpeg.FS('writeFile', 'audio.ogg', await fetchFile('assets/triangle/audio.ogg'));
 	  for (let i = 0; i < 60; i += 1) {
 		const num = `00${i}`.slice(-3);
 		ffmpeg.FS('writeFile', `tmp.${num}.png`, await fetchFile(`assets/triangle/tmp.${num}.png`));

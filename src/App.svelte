@@ -14,7 +14,7 @@
  </div>
   
   
-  <ExportVideo />
+  <ExportVideo bind:images="{images}" />
  
 
 </main>
