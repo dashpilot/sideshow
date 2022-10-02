@@ -11,7 +11,6 @@
   {#each images as image}
   <div class="scene" style="background-image: url({image});"></div>
   {/each}<ImageUpload img_width="800" bind:images="{images}" />
-
  </div>
   
   
