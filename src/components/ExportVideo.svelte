@@ -52,7 +52,7 @@
 	  */
 	  
 	  message = 'Start transcoding...';
-	  await ffmpeg.run('-framerate', '1', '-pattern_type', 'glob', '-i', '*.jpg', '-i', 'audio.ogg', '-c:a', 'copy', '-shortest', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', 'out.mp4');
+	  await ffmpeg.run('-framerate', '0.2', '-pattern_type', 'glob', '-i', '*.jpg', '-i', 'audio.ogg', '-c:a', 'copy', '-shortest', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', 'out.mp4');
 
 
 	  const data = ffmpeg.FS('readFile', 'out.mp4');
