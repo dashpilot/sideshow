@@ -3,6 +3,8 @@ import { onMount } from 'svelte';
 
 export let img_width;
 export let images;
+export let index;
+export let showEditor;
 let loading = false;
 
 function startUpload(){
@@ -50,10 +52,16 @@ document.getElementById('fileInput').addEventListener('change', function(e) {
 	var base64Image = canvas.toDataURL('image/jpeg')
 
 	console.log(base64Image);
-	images.push(base64Image);
+	images[index] = base64Image;
 	images = images;
 	
 	loading = false;
+	
+	showEditor = false;
+	
+	setTimeout(()=>{
+		showEditor = true;
+	}, 1)
 
 
   }
@@ -66,13 +74,7 @@ document.getElementById('fileInput').addEventListener('change', function(e) {
 
 <input type="file" id="fileInput" class="fileInput" accept="image/png, image/jpeg, image/gif" style="display: none; " />
 
-<div class="scene button" on:click="{startUpload}">
-	<div class="center">
-		{#if loading}
-		<i class="fas fa-spinner fa-spin"></i>
-		{:else}
-		<i class="fas fa-plus"></i>
-		{/if}
-	</div>
-</div>
+<button class="btn btn-primary" on:click="{startUpload}">
+	<i class="fas fa-image"></i> &nbsp;Upload Image
+</button>
 

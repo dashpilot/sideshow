@@ -1,5 +1,9 @@
+<svelte:head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/500/fabric.min.js"></script>
+</svelte:head>
+
 <script>
-  import ImageUpload from './components/ImageUpload.svelte'
+
   import SceneEditor from './components/SceneEditor.svelte'
   import ExportVideo from './components/ExportVideo.svelte'
   let images = [];
@@ -9,6 +13,13 @@
   function openEditor(i){
     showEditor = true;
     index = i;
+  }
+  
+  function addScene(){
+    images.push('placeholder.jpg');
+    index = parseInt(images.length) - 1;
+    console.log(index)
+    showEditor = true;
   }
 </script>
 
@@ -20,7 +31,14 @@
   <div class="scene button" style="background-image: url({image});" on:click="{() => openEditor(i)}">
     <div class="center text-white"><i class="fas fa-cog"></i></div>
   </div>
-  {/each}<ImageUpload img_width="1920" bind:images="{images}" />
+  {/each}
+  <div class="scene button" on:click="{addScene}">
+    <div class="center">
+    
+      <i class="fas fa-plus"></i>
+
+    </div>
+  </div>
  </div>
   
   
