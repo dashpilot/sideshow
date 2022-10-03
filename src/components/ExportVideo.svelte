@@ -7,20 +7,11 @@
 		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" on:click="{() => showExport = false}"></button>
 	  </div>
 	  <div class="modal-body">
-		  
-		  
-		  
-		  
-			
-			
-			
+	
 			<span id="message" class="message">{message}</span>
-		  
-			
-			
+		 
 			<br /> <br />
 			<video id="output-video" controls style="display: none" width="752" height="423"></video>
-		  
 		  
 	  </div>
 	  <div class="modal-footer">

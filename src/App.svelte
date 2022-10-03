@@ -25,7 +25,7 @@
 <nav class="navbar navbar-dark bg-dark ps-3">
   <div class="row w-100">
     <div class="col-6 brand"><a class="navbar-brand" href="#">StorySlider</a></div>
-    <div class="col-6 text-end"><button class="btn btn-success" on:click="{() => showExport = true}">Export Video</button></div>
+    <div class="col-6 text-end pe-0"><button class="btn btn-success" on:click="{() => showExport = true}">Export Video</button></div>
   </div>
 </nav>
 
