@@ -3,179 +3,190 @@
 
 <div class="backdrop">
 	
-	<div class="wdgt-modal">
+	
+	
+	
+	<div class="modal modal-xl mt-5" style="display: block;">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title">Scene Editor</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" on:click="{() => showEditor = false}"></button>
+		  </div>
+		  <div class="modal-body">
+			  
+			  
+			  
+			  
+			  <div class="row g-0">
+				  
+				  <div class="col-8 p-3">
+					  
+					  
+					  
+					  <div id="capture" class="slide" style="background-image: url({scenes[index].image})">
+						
+						
+						<div class="row">
+							<div class="col-8">
+								
+								
+								<div class="p-4">
+								<h4>{scenes[index].title}</h4>
+								
+								
+								<p>{scenes[index].description}</p>
+								</div>
+								
+								
+								
+							</div>
+							<div class="col-4">
+								
+							
+							</div>
+						</div>  
+						
+					  </div>
+					
+					  
+				  </div>
+				  <div class="col-4 side">
+					  
+					  
+					  <div class="label">Image</div>
+					  
+					  <ImageUpload img_width="2880" bind:scenes="{scenes}" bind:index="{index}" bind:showEditor="{showEditor}" />
+						  
+						  
+						  
+						<div class="label">Title</div>
+							
+						<input type="text" class="form-control" bind:value="{scenes[index].title}">
+						
+						
+						<div class="label">Description</div>
+						<textarea class="form-control" bind:value="{scenes[index].description}"></textarea>
+					  
+					  
+					  
+				  </div>
+				  
+			  </div>
+			  
+			  
+			  
+			  
 		
-		<div class="close" on:click="{() => showEditor = false}">&times;</div>
+		  </div>
+		  <div class="modal-footer">
+			  
+			  
+			  <button class="btn btn-primary float-end" on:click="{capture}">Save</button>
+					  
+
 		
-		<h3>Edit Scene</h3>
-		
-		<div></div>
-		<br>
-		
-		<!--
-		<div class="alert alert-warning p-2"><strong>Tip:</strong> You can drag and resize the image</div>
-	-->
-		
-		
-		<ImageUpload img_width="1920" bind:images="{images}" bind:index="{index}" bind:showEditor="{showEditor}" />
-		
-		<button class="btn btn-success float-end" on:click="{saveScene}"><i class="fas fa-save"></i> &nbsp;Save</button>
-		
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--
+
+	
 		
 		<button class="btn btn-outline-danger float-end me-2" on:click="{deleteScene}">Delete</button>
 		
-		<div class="mt-3"></div>
-		
-	
-		<canvas id="c" width="1920" height="1080" style="border:2px solid #000000;transform: scale(0.4);transform-origin: top left;"></canvas>
-		
-	<!--	
-		<div class="label">Description</div>
-			<div class="input-group mb-3">
-			<input type="text" class="form-control" bind:value="{textcontent}" />
-			<button class="btn btn-outline-secondary" on:click="{updateText}">Update</button>
-		</div>
-	-->
 
-	
-	
-
-		
-	</div>
+-->
 	
 	
 </div>
 
 <script>
+import html2canvas from 'html2canvas';
   import ImageUpload from './ImageUpload.svelte'
 
 
 export let showEditor;
-export let images;
+export let scenes;
 export let index;
 
-let canvas;
-let text;
-let textcontent = "Your description here";
+
 
 
 function deleteScene(){
 	if(confirm('Are you sure you want to delete this scene?')){
-		images.splice(index, 1);
-		images = images;
+		scenes.splice(index, 1);
+		scenes = scenes;
 		showEditor = false;
 	}
 }
 
-import {onMount} from 'svelte'
-
-onMount(() => {
-	canvas = new fabric.Canvas('c')
 	
-	/*
-	let rect =  new fabric.Rect({
-		left:120, top: 10, fill: 'teal', width: 150, height: 150, angle: 45
-	})        
-	canvas.add(rect)
-	*/
 	
-
-	
-	fabric.Image.fromURL(images[index], function(img) {
-		img.set({ left: 0, top: 0});
-		img.scaleToWidth(1920)
-		canvas.add(img);   
-		canvas.moveTo(img, 0);    
-	});
-	
-	/*
-	text = new fabric.Text(textcontent, {
-		fill: 'white',
-		top: 400,
-		left: 20,
-		fontFamily: "Helvetica",
-		fontSize: 25
-	});
-	
-	canvas.add(text);
-	canvas.moveTo(text, 10);
-	*/
-
-	
-
-})
-
-	function updateText(){
-		text.set('text',textcontent);
-		canvas.renderAll();
-	}
-	
-	function saveScene(){
-		let data = canvas.toDataURL({format: 'jpeg'});
-		console.log(data);
-		images[index] = data;
+	function capture(){
+	html2canvas(document.querySelector("#capture"), {scale: 4}).then(mycanvas => {
+		scenes[index].rendered = mycanvas.toDataURL('image/jpeg')
 		showEditor = false;
+	});
 	}
+	
+
 	
 	
 </script>
 
 
 <style>
-	.backdrop{
-		background-color: rgba(0,0,0,0.5);
-		position:fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}	
-	
-	.wdgt-modal{
-		background-color: white;
-		border-radius: 8px;
-		padding: 20px;
-		max-width: 810px;
-		height: 640px;
-		margin: 40px auto;
-	}
-	
-	.close{
-		float: right;
-		font-size: 35px;
-		margin-top: -10px;
-	}
-	
-	.close:hover{
-		color: #999;
-		cursor: pointer;
-	}
-	
-	#c{
-		margin-bottom: 10px;
-	}
-	
 
-	
-	h3{
-		font-size: 20px;
-	}
+.slide{
+	width: 720px;
+	height: 405px;
+	background-size: cover;
+	background-color: #999;
+}
+
+.slide h4{
+	margin-top: 305px;
+	color: white;
+	margin-bottom: 0;
+}
+
+.slide p{
+	color: white;
+}
+
+
+.side{
+	border-left: 1px solid #DDD;
+	padding: 0px 30px 20px 20px;
+}
+
+.modal-body{
+	padding: 0;
+}
+
+textarea{
+	height: 100px;
+	resize: none;
+}
 	
 
 	.label{
 		font-size: 14px;
 		text-transform: uppercase;
 		letter-spacing: 0.03em;
-		margin-top: 10px;
-		margin-bottom: 5px;
+		margin-top: 15px;
+		margin-bottom: 4px;
 	}
 	
-	
-	
-	@media only screen and (max-width: 800px) {
-		.wdgt-modal{
-			margin: 0;
-			height: 100%;
-		}
-	}
+
 </style>
