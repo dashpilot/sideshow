@@ -57,13 +57,6 @@ document.getElementById('fileInput').addEventListener('change', function(e) {
 	
 	loading = false;
 	
-	showEditor = false;
-	
-	setTimeout(()=>{
-		showEditor = true;
-	}, 1)
-
-
   }
 
   img.src = URL.createObjectURL(e.target.files[0]);
