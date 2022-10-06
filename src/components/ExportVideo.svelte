@@ -12,6 +12,10 @@
 		 
 			<br /> <br />
 			<video id="output-video" controls style="display: none" width="752" height="423"></video>
+			
+			
+			
+			<a class="btn btn-success" id="download" download="myvid.mp4">Download</a>
 		  
 	  </div>
 	  <div class="modal-footer">
@@ -31,6 +35,7 @@
 	export let showExport;
 	let message = "Press 'Generate video' to render your video";
 	let start = "Generate Video"
+
 	
 	const {
 	  createFFmpeg,
@@ -47,6 +52,9 @@
 		
 	    const video = document.getElementById('output-video');
 		video.style.display = 'none';
+		
+		const download = document.getElementById('download');
+		download.style.display = 'none';
 		
 	  start = '<i class="fas fa-spinner fa-spin"></i> &nbsp;Converting...'
 
@@ -96,7 +104,14 @@
 	  video.src = URL.createObjectURL(new Blob([data.buffer], {
 		type: 'video/mp4'
 	  }));
-	  video.style.display = 'block';
+	  // video.style.display = 'block';
+	  
+	  download.href = URL.createObjectURL(new Blob([data.buffer], {
+		  type: 'video/mp4'
+		}));
+		
+		download.style.display = 'block';
+	  
 	  
 	  message = 'Done!'
 	  start = 'Generate Video'
