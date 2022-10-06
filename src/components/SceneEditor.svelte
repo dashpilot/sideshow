@@ -56,7 +56,7 @@
 					  
 					  <div class="label">Image</div>
 					  
-					  <ImageUpload img_width="2880" bind:scenes="{scenes}" bind:index="{index}" bind:showEditor="{showEditor}" />
+					  <ImageUpload img_width="800" bind:scenes="{scenes}" bind:index="{index}" bind:showEditor="{showEditor}" />
 						  
 						  
 						  
@@ -133,7 +133,7 @@ function deleteScene(){
 	
 	
 	function capture(){
-	html2canvas(document.querySelector("#capture"), {scale: 4}).then(mycanvas => {
+	html2canvas(document.querySelector("#capture"), {scale: 2}).then(mycanvas => {
 		scenes[index].rendered = mycanvas.toDataURL('image/jpeg')
 		showEditor = false;
 	});
