@@ -23,16 +23,8 @@
  </div>
 
 
-
-
-  
-  
- 
-
-  
   
   <script>
-  
   
   
   	export let scenes;
@@ -45,8 +37,10 @@
 	  fetchFile
 	} = FFmpeg;
 	const ffmpeg = createFFmpeg({
+	  corePath: `./core_custom_1024/ffmpeg-core.js`,
 	  log: true
 	});
+
 
 	const image2video = async () => {
 		

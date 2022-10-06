@@ -19,8 +19,6 @@ onMount(async () => {
 document.getElementById('fileInput').addEventListener('change', function(e) {
 	
  loading = true;
- 
-
 
   var img = new Image();
  
