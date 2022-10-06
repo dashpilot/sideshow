@@ -37,7 +37,6 @@
 	  fetchFile
 	} = FFmpeg;
 	const ffmpeg = createFFmpeg({
-	  corePath: `./core_custom_mobile/ffmpeg-core.js`,
 	  log: true
 	});
 
