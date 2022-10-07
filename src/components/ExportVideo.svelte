@@ -84,7 +84,7 @@
 
 	  
 	  message = 'Creating video... This may take a while.';
-	  await ffmpeg.run('-framerate', '0.25', '-pattern_type', 'glob', '-i', '*.jpg', '-c:v', 'libx264', '-r', '25', '-filter_complex', "scale=-2:2*ih,zoompan=z='min(zoom+0.0015,1.5)':d=125:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',scale=-2:720", '-pix_fmt', 'yuv420p', 'out.mp4');
+	  await ffmpeg.run('-framerate', '0.25', '-pattern_type', 'glob', '-i', '*.jpg', '-c:v', 'libx264', '-r', '25', '-filter_complex', "scale=-2:2*ih,zoompan=z='min(zoom+0.0015,1.5)':d=125:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',scale=-2:1080", '-pix_fmt', 'yuv420p', 'out.mp4');
 	   
 	  // -framerate -> set input framerate
 	  // -r -> set output framerate
