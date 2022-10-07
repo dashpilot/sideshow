@@ -10,15 +10,17 @@
 	
 			<span id="message" class="message">{message}</span>
 		 
-			<br /> <br />
+			<br /> 
 			<video id="output-video" controls style="display: none" width="752" height="423"></video>
 			
 			
 			
-			<a class="btn btn-success" id="download" download="myvid.mp4">Download</a>
+		
 		  
 	  </div>
 	  <div class="modal-footer">
+		  
+		  <a class="btn btn-success" id="download" download="myvid.mp4" style="display: none;">Download</a>
 	<button id="start-btn" class="btn btn-primary" on:click={image2video}>{@html start}</button> 
 	  </div>
 	</div>
@@ -35,6 +37,7 @@
 	export let showExport;
 	let message = "Press 'Generate video' to render your video";
 	let start = "Generate Video"
+	
 
 	
 	const {
@@ -55,6 +58,8 @@
 		
 		const download = document.getElementById('download');
 		download.style.display = 'none';
+		
+		const start_btn = document.getElementById('start-btn');
 		
 	  start = '<i class="fas fa-spinner fa-spin"></i> &nbsp;Converting...'
 
@@ -79,7 +84,7 @@
 
 	  
 	  message = 'Creating video... This may take a while.';
-	  await ffmpeg.run('-framerate', '0.25', '-pattern_type', 'glob', '-i', '*.jpg', '-c:v', 'libx264', '-r', '25', '-pix_fmt', 'yuv420p', 'out.mp4');
+	  await ffmpeg.run('-framerate', '0.25', '-pattern_type', 'glob', '-i', '*.jpg', '-c:v', 'libx264', '-r', '25', '-filter_complex', "scale=-2:2*ih,zoompan=z='min(zoom+0.0015,1.5)':d=125:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',scale=-2:450", '-pix_fmt', 'yuv420p', 'out.mp4');
 	   
 	  // -framerate -> set input framerate
 	  // -r -> set output framerate
@@ -111,6 +116,8 @@
 		}));
 		
 		download.style.display = 'block';
+		start_btn.style.display = 'none';
+		
 	  
 	  
 	  message = 'Done!'

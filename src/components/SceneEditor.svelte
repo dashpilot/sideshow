@@ -13,18 +13,27 @@
 			<h5 class="modal-title">Scene Editor</h5>
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" on:click="{() => showEditor = false}"></button>
 		  </div>
-		  <div class="modal-body">
+		  <div class="modal-body p-3">
 			  
 			  
+			  <ImageUpload img_width="1920" bind:scenes="{scenes}" bind:index="{index}" bind:showEditor="{showEditor}" />	 
+				  
+				  <br>
 			  
 			  
+			  <img src="{scenes[index].image}" class="img-fluid mt-3" />
+			  
+			  <div id="capture" class="slide" style="background-image: url({scenes[index].image})">
+				  
+			 
+				  
+				  
+			 <!--
 			  <div class="row g-0">
 				  
 				  <div class="col-8 p-3">
+					
 					  
-					  
-					  
-					  <div id="capture" class="slide" style="background-image: url({scenes[index].image})">
 						
 						
 						<div class="row">
@@ -56,7 +65,7 @@
 					  
 					  <div class="label">Image</div>
 					  
-					  <ImageUpload img_width="800" bind:scenes="{scenes}" bind:index="{index}" bind:showEditor="{showEditor}" />
+					 
 						  
 						  
 						  
@@ -71,14 +80,15 @@
 					  
 					  
 				  </div>
-				  
+				  -->
 			  </div>
-			  
+		 
 			  
 			  
 			  
 		
 		  </div>
+		
 		  <div class="modal-footer">
 			  
 			  
@@ -148,6 +158,9 @@ function deleteScene(){
 <style>
 
 .slide{
+	position: absolute;
+	right: 9999px;
+	top: 9999px;
 	width: 720px;
 	height: 405px;
 	background-size: cover;
