@@ -23,6 +23,8 @@
 			  
 			  <img src="{scenes[index].image}" class="img-fluid mt-3" />
 			  
+			  
+			  <!-- off-canvas capture -->
 			  <div id="capture" class="slide" style="background-image: url({scenes[index].image})">
 				  
 			 
@@ -143,7 +145,7 @@ function deleteScene(){
 	
 	
 	function capture(){
-	html2canvas(document.querySelector("#capture"), {scale: 2}).then(mycanvas => {
+	html2canvas(document.querySelector("#capture"), {scale: 3}).then(mycanvas => {
 		scenes[index].rendered = mycanvas.toDataURL('image/jpeg')
 		showEditor = false;
 	});
@@ -161,8 +163,8 @@ function deleteScene(){
 	position: absolute;
 	right: 9999px;
 	top: 9999px;
-	width: 720px;
-	height: 405px;
+	width: 1280px;
+	height: 720px;
 	background-size: cover;
 	background-color: #999;
 }
