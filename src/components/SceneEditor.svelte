@@ -6,7 +6,7 @@
 	
 	
 	
-	<div class="modal modal-xl mt-5" style="display: block;">
+	<div class="modal mt-5" style="display: block;">
 	  <div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
@@ -145,7 +145,7 @@ function deleteScene(){
 	
 	
 	function capture(){
-	html2canvas(document.querySelector("#capture"), {scale: 3}).then(mycanvas => {
+	html2canvas(document.querySelector("#capture"), {scale: 2}).then(mycanvas => {
 		scenes[index].rendered = mycanvas.toDataURL('image/jpeg')
 		showEditor = false;
 	});
@@ -163,8 +163,8 @@ function deleteScene(){
 	position: absolute;
 	right: 9999px;
 	top: 9999px;
-	width: 1920px;
-	height: 1080px;
+	width: 1280px;
+	height: 720px;
 	background-size: cover;
 	background-color: #999;
 }
