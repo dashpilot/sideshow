@@ -9,6 +9,24 @@
 	  <div class="modal-body">
 	
 			<span id="message" class="message">{message}</span>
+			
+			
+			
+			{#if converting}
+			<div class="text-center">
+			<img src="img/dashpilot-anim.gif" class="img-fluid" />
+		</div>
+			{/if}
+			
+			{#if done}
+			
+			<div class="text-center">
+				<img src="img/dashpilot-check.gif" class="img-fluid" />
+			</div>
+			{/if}
+	
+			
+			
 		 
 			<br /> 
 			<video id="output-video" controls style="display: none" width="752" height="423"></video>
@@ -37,7 +55,8 @@
 	export let showExport;
 	let message = "Press 'Generate video' to render your video";
 	let start = "Generate Video"
-	
+	let converting = false;
+	let done = false;
 
 	
 	const {
@@ -53,6 +72,8 @@
 
 	const image2video = async () => {
 		
+		converting = true;
+		
 	    const video = document.getElementById('output-video');
 		video.style.display = 'none';
 		
@@ -61,16 +82,19 @@
 		
 		const start_btn = document.getElementById('start-btn');
 		
+		
+		
+		
 	  start = '<i class="fas fa-spinner fa-spin"></i> &nbsp;Converting...'
 
-	  message = 'Loading ffmpeg-core.js';
+	  message = 'Loading images...';
 	  
 	  if(!ffmpeg.isLoaded()){
 		  await ffmpeg.load();
 	  }
 	  
 	  
-	  message = 'Loading data';
+	  message = 'Rendering video. This may take a while...';
 	  // ffmpeg.FS('writeFile', 'audio.ogg', await fetchFile('assets/triangle/audio.ogg'));
 	  
 	  var i = 0;
@@ -122,6 +146,9 @@
 	  
 	  message = 'Done!'
 	  start = 'Generate Video'
+	  converting = false;
+	  done = true;
+			  
 
 	}
 
