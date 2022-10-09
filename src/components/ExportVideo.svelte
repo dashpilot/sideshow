@@ -8,29 +8,21 @@
 	  </div>
 	  <div class="modal-body">
 	
-			<span id="message" class="message">{message}</span>
 			
 			
 			
-			{#if converting}
-			<div class="text-center">
-			<img src="img/dashpilot-anim.gif" class="img-fluid" />
+			
+		
+			<div class="text-center" id="videotape">
+			<img src="img/videotape.png" class="img-fluid w-50" />
 		</div>
-			{/if}
+		
 			
-			{#if done}
-			
-			<div class="text-center">
-				<img src="img/dashpilot-check.gif" class="img-fluid" />
-			</div>
-			{/if}
+		
 	
-			
-			
-		 
-			<br /> 
-			<video id="output-video" controls style="display: none" width="752" height="423"></video>
-			
+			<div id="video-preview" class="ratio ratio-16x9" style="display: none">
+			<video id="output-video" controls width="752" height="423"></video>
+			</div>
 			
 			
 		
@@ -38,8 +30,13 @@
 	  </div>
 	  <div class="modal-footer">
 		  
+		 
+		  <span id="message" class="message me-auto">{message}</span>
+		
+		 
 		  <a class="btn btn-success" id="download" download="myvid.mp4" style="display: none;">Download</a>
 	<button id="start-btn" class="btn btn-primary" on:click={image2video}>{@html start}</button> 
+		
 	  </div>
 	</div>
   </div>
@@ -51,9 +48,9 @@
   <script>
   
   
-  	export let scenes;
+  	export let frames;
 	export let showExport;
-	let message = "Press 'Generate video' to render your video";
+	let message = "";
 	let start = "Generate Video"
 	let converting = false;
 	let done = false;
@@ -77,6 +74,10 @@
 	    const video = document.getElementById('output-video');
 		video.style.display = 'none';
 		
+		const video_preview = document.getElementById('video-preview');
+		
+		const videotape = document.getElementById('videotape');
+		
 		const download = document.getElementById('download');
 		download.style.display = 'none';
 		
@@ -94,13 +95,13 @@
 	  }
 	  
 	  
-	  message = 'Rendering video. This may take a while...';
+	  message = 'Rendering. This may take a while...';
 	  // ffmpeg.FS('writeFile', 'audio.ogg', await fetchFile('assets/triangle/audio.ogg'));
 	  
 	  var i = 0;
-	  for (const scene of scenes) {
+	  for (const frame of frames) {
 		  const num = `00${i}`.slice(-3);
-		  let img = scene.rendered; // image.split(',')[1]
+		  let img = frame // image.split(',')[1]
 		  ffmpeg.FS('writeFile', `tmp.${num}.jpg`, await fetchFile(img));
 		  i++;
 		  console.log(i)
@@ -108,7 +109,7 @@
 
 	  
 	  message = 'Creating video... This may take a while.';
-	  await ffmpeg.run('-framerate', '0.25', '-pattern_type', 'glob', '-i', '*.jpg', '-c:v', 'libx264', '-r', '25', '-filter_complex', "scale=-2:2*ih,zoompan=z='min(zoom+0.0015,1.5)':d=125:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',scale=-2:720", '-pix_fmt', 'yuv420p', 'out.mp4');
+	  await ffmpeg.run('-framerate', '25', '-pattern_type', 'glob', '-i', '*.jpg', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', 'out.mp4');
 	   
 	  // -framerate -> set input framerate
 	  // -r -> set output framerate
@@ -123,17 +124,19 @@
 	  const data = ffmpeg.FS('readFile', 'out.mp4');
 	  //ffmpeg.FS('unlink', 'audio.ogg')
 	  var i = 0;
-	  for (const scene2 of scenes) {
+	  for (const frame2 of frames) {
 	    const num = `00${i}`.slice(-3);
 		ffmpeg.FS('unlink', `tmp.${num}.jpg`);
 		i++
 	  }
 
-	 
 	  video.src = URL.createObjectURL(new Blob([data.buffer], {
 		type: 'video/mp4'
 	  }));
-	  // video.style.display = 'block';
+	  video.style.display = 'block';
+	  
+	  video_preview.style.display = 'block';
+	  videotape.style.display = 'none';
 	  
 	  download.href = URL.createObjectURL(new Blob([data.buffer], {
 		  type: 'video/mp4'
@@ -142,7 +145,6 @@
 		download.style.display = 'block';
 		start_btn.style.display = 'none';
 		
-	  
 	  
 	  message = 'Done!'
 	  start = 'Generate Video'
@@ -157,7 +159,10 @@
   </script>
   
   <style>
-	  .message{
-		  padding-left: 10px;
+	
+	  .modal-body{
+		  background-color: #DFE6EA;
 	  }
+	  
+	 
   </style>
